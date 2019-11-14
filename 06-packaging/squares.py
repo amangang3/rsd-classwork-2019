@@ -1,4 +1,5 @@
 """Computation of weighted average of squares."""
+from argparse import ArgumentParser
 
 
 def average_of_squares(list_of_numbers, list_of_weights=None):
@@ -50,10 +51,16 @@ def convert_numbers(list_of_strings):
 
 
 if __name__ == "__main__":
-    with open("numbers.txt", "r") as numbers_file:
+    parser = ArgumentParser(description="Welcome to my file")
+    parser.add_argument('number')
+    parser.add_argument('weights')
+    arguments = parser.parse_args()
+    #with open(f"{arguments.number}" + ".txt", "r") as numbers_file:
+    with open(arguments.number + ".txt","r") as numbers_file:
         numbers_strings = numbers_file.readlines()
-    # TODO Can we make this optional, so that we don't need a weights file?
-    with open("weights.txt", "r") as weights_file:
+    # # TODO Can we make this optional, so that we don't need a weights file?
+    #with open("weights.txt", "r") as weights_file:
+    with open(f"{arguments.weights}" + ".txt","r") as weights_file:
         weight_strings = weights_file.readlines()
     numbers = convert_numbers(numbers_strings)
     weights = convert_numbers(weight_strings)
@@ -61,3 +68,4 @@ if __name__ == "__main__":
     result = average_of_squares(numbers, weights)
     # TODO Can we write the result in a file instead of printing it?
     print(result)
+
